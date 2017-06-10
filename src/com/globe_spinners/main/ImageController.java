@@ -1,15 +1,13 @@
 package com.globe_spinners.main;
 
-import java.awt.Graphics;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.IntBuffer;
-
-import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 
 public class ImageController {
     private long startTime;
@@ -26,8 +24,8 @@ public class ImageController {
     public void init() {
         frameRate = 1.0 / 24.0;
         lastTime = 0;
-        globeW = 200;
-        globeH = 70;
+        globeW = 86;
+        globeH = 43;
 
         BufferedImage image = null;
         try {
@@ -50,6 +48,7 @@ public class ImageController {
                 }
             }
             ByteBuffer byteBuffer = ByteBuffer.allocate(output.length * 4);
+            byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
             IntBuffer intBuffer = byteBuffer.asIntBuffer();
             intBuffer.put(output);
             byte[] buffer = byteBuffer.array();
